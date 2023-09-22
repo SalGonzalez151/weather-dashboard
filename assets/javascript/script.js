@@ -21,7 +21,6 @@ function currentWeather(city) {
         .then(function (data) {
             var weatherIcon =  `https://openweathermap.org/img/w/${data.weather[0].icon}.png`
             var imageHTML = `<img src="${weatherIcon}" alt="weather icon" width="40" height="46">`
-            
             console.log(data);
             var cityName = data.name;
             var cityTemp = data.main.temp;
@@ -47,7 +46,6 @@ function currentWeather(city) {
                     var card4 = document.createElement('p')
                     var weatherIcon2 =  `https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`
                     var imageHTML2 = `<img src="${weatherIcon2}" alt="weather icon" width="40" height="46">`
-                    
                     card1.setAttribute('class', 'col-2 card');
                     card1.innerHTML = dayjs(data.list[i+1].dt_txt).format('M/D/YYYY') + imageHTML2;
                     card2.textContent = 'temp: ' + data.list[i].main.temp;
