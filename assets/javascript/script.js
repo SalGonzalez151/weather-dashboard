@@ -1,3 +1,4 @@
+
 var APIKey = 'b0a0ca6ea1dc0c023840ac1209a28957';
 
 var searchBarEl = document.querySelector('#search-bar');
@@ -14,7 +15,7 @@ cityStorage();
 function currentWeather(city) {
     var catURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + '&units=imperial';
 
-
+//function that fetches the weather for today's date
     fetch(catURL)
         .then(function (response) {
             return response.json()
@@ -36,6 +37,7 @@ function currentWeather(city) {
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=${APIKey}`)
                 .then(function (response) {
                     return response.json()
+                 //gets the 5 day forecast for the city searched   
                 })
                 .then(function (data) {
                     fiveDayEl.innerHTML = '';
@@ -66,7 +68,7 @@ function currentWeather(city) {
         })
 }
 
-
+//stores the city that was loooked up to local storage
 function cityStorage() {
     savedListEl.innerHTML = '';
     var cities = JSON.parse(localStorage.getItem('cities'));
@@ -83,7 +85,7 @@ function cityStorage() {
         }
 }
 
-
+//displays the city on the webpage that was looked up
 searchBtnEl.addEventListener('click', function (event) {
     event.preventDefault();
     city = searchBarEl.value;
@@ -103,7 +105,7 @@ searchBtnEl.addEventListener('click', function (event) {
 });
 
 
-
+//button history for the cities looked up
 savedListEl.addEventListener('click', function (event) {
     if (event.target.tagName === 'BUTTON') {
         var cityName = event.target.textContent;
