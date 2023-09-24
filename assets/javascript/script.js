@@ -29,7 +29,7 @@ function currentWeather(city) {
             var cityHumidity = data.main.humidity;
             var cityLat = data.coord.lat;
             var cityLon = data.coord.lon;
-            tempEl.textContent = 'Temp: ' + Math.floor(cityTemp);
+            tempEl.textContent = 'Temp: ' + Math.floor(cityTemp) + ' °F';
             forecastEl.innerHTML = cityName + ' ' + dayjs().format('M/D/YYYY') + ' ' + imageHTML;
             windEl.textContent = 'Wind: ' + Math.floor(cityWind) + ' MPH';
             humidityEl.textContent = 'Humidity: ' + Math.floor(cityHumidity) + ' %';
@@ -49,7 +49,7 @@ function currentWeather(city) {
                         var imageHTML2 = `<img src="${weatherIcon2}" alt="weather icon" width="40" height="46">`
                         card1.setAttribute('class', 'col-2 card');
                         card1.innerHTML = dayjs(data.list[i + 1].dt_txt).format('M/D/YYYY') + imageHTML2;
-                        card2.textContent = 'temp: ' + data.list[i].main.temp;
+                        card2.textContent = 'temp: ' + data.list[i].main.temp + ' °F';
                         card3.textContent = 'Wind: ' + data.list[i].wind.speed;
                         card4.textContent = 'Humidity: ' + Math.floor(data.list[i].main.humidity);
                         console.log(card2);
@@ -73,7 +73,11 @@ function cityStorage() {
     if (cities)
         for (var i = 0; i < cities.length; i++) {
             var recentSearches = document.createElement('button')
-            recentSearches.textContent = cities[i];
+            var cityWords = cities[i].split(' ');
+            for (var j = 0; j < cityWords.length; j++) {
+                cityWords[j] = cityWords[j].charAt(0).toUpperCase() + cityWords[j].slice(1);
+            }
+            recentSearches.textContent = cityWords.join(' ')
             recentSearches.setAttribute('class', 'btn btn-secondary col-12 my-1');
             savedListEl.appendChild(recentSearches);
         }
@@ -85,7 +89,7 @@ searchBtnEl.addEventListener('click', function (event) {
     city = searchBarEl.value;
     currentWeather(city);
     var cities = JSON.parse(localStorage.getItem('cities')) || [];
-
+    city = city.toLowerCase();
     if (city === '') {
         return;
     } else
