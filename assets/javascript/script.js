@@ -7,8 +7,9 @@ var tempEl = document.querySelector('#forecast-temp');
 var windEl = document.querySelector('#forecast-wind');
 var humidityEl = document.querySelector('#forecast-humidity');
 var fiveDayEl = document.querySelector('.cards');
+var savedListEl = document.querySelector('#saved-list')
 
-
+cityStorage();
 
 function currentWeather(city) {
     var catURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey + '&units=imperial';
@@ -69,6 +70,36 @@ searchBtnEl.addEventListener('click', function (event) {
     event.preventDefault();
     city = searchBarEl.value;
     currentWeather(city);
-    // console.log(city)
+    var cities = JSON.parse(localStorage.getItem('cities'))
+    if (cities) {
+        cities.push(city)
+        localStorage.setItem('cities', JSON.stringify(cities))
+    } else {
+        cities = []
+        cities.push(city)
+        localStorage.setItem('cities', JSON.stringify(cities))
+    }
+    if (!searchBarEl.value) return;
+    localStorage.getItem(city);
+    cityStorage();
+    
+    
 });
 
+function cityStorage () {
+        savedListEl.innerHTML = '';
+        var cities = JSON.parse(localStorage.getItem('cities'))
+        if (cities)
+        for (var i = 0; i < cities.length; i++) {
+        var recentSearches = document.createElement('button')
+        recentSearches.textContent = cities[i];
+        savedListEl.appendChild(recentSearches);
+        }
+}
+
+savedListEl.addEventListener('click', function (event) {
+    if (event.target.tagName === 'BUTTON') {
+        var cityName = event.target.textContent;
+        currentWeather(cityName);
+    }
+});
