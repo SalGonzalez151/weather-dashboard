@@ -1,3 +1,23 @@
 #search-bar {
     margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+#search-btn {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+#city-header {
+    margin-left: 10px;
+}
+
+header {
+    background-color: blue;
+    color: white;
+}
+
+.card {
+    background-color: lightblue;
+    margin-right: 5px;
 }

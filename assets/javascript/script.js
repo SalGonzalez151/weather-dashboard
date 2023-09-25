@@ -30,9 +30,9 @@ function currentWeather(city) {
             var cityHumidity = data.main.humidity;
             var cityLat = data.coord.lat;
             var cityLon = data.coord.lon;
-            tempEl.textContent = 'Temp: ' + Math.floor(cityTemp) + ' °F';
+            tempEl.textContent = 'Temp: ' + cityTemp + ' °F';
             forecastEl.innerHTML = cityName + ' ' + dayjs().format('M/D/YYYY') + ' ' + imageHTML;
-            windEl.textContent = 'Wind: ' + Math.floor(cityWind) + ' MPH';
+            windEl.textContent = 'Wind: ' + cityWind + ' MPH';
             humidityEl.textContent = 'Humidity: ' + Math.floor(cityHumidity) + ' %';
             fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&units=imperial&appid=${APIKey}`)
                 .then(function (response) {
@@ -59,9 +59,6 @@ function currentWeather(city) {
                         card1.appendChild(card2);
                         card1.appendChild(card3);
                         card1.appendChild(card4);
-
-
-
                     }
 
                 })
@@ -99,11 +96,8 @@ searchBtnEl.addEventListener('click', function (event) {
             cities.push(city);
             localStorage.setItem('cities', JSON.stringify(cities));
         }
-
-    localStorage.setItem('city', city);
     cityStorage();
 });
-
 
 //button history for the cities looked up
 savedListEl.addEventListener('click', function (event) {
